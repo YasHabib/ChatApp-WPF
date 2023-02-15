@@ -1,0 +1,116 @@
+﻿<Window x:Class="Chat_App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Chat_App" xmlns:view_model="clr-namespace:Chat_App.MVVM.View_Model"
+        mc:Ignorable="d"
+        x:Name="mainWindow"
+        AllowsTransparency="True"
+        Background="Transparent"
+        FontSize="15"
+        ResizeMode="CanMinimize"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Height="770" Width="1250">
+
+    <Window.DataContext>
+        <view_model:MainWindowVM/>
+    </Window.DataContext>
+    <!-- Structuring mainWindow-->
+    <Border CornerRadius="10"
+            Background="#36393f">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="38"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <!--Title bar-->
+            <Border Grid.ColumnSpan="2" Background="LightGreen" MouseDown="Border_MouseDown" CornerRadius="10">
+
+                <Grid HorizontalAlignment="Stretch">
+                    <Label Content="ChittyChat" Foreground="Gray" FontWeight="SemiBold" FontSize="20"/>
+
+                    <!--Window control buttons-->
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,0,0">
+                        <Button Width="20" Height="20" Content="🗕" Background="Transparent" BorderThickness="0" Foreground="Gray" FontWeight="Bold" Margin="0,0,0,5" Click="ButtonMinimize_Click"/>
+                        <Button Width="20" Height="20" Content="☐" Background="Transparent" BorderThickness="0" Foreground="Gray" FontWeight="Bold" Click="ButtomMaximize_Click"/>
+                        <Button Width="20" Height="20" Content="X" Background="Transparent" BorderThickness="0" Foreground="Gray" FontWeight="Bold" Click="ButtonClose_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            
+            <!--Left hand side content-->
+            <Grid Background="#2f3136" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Content="Contacts" VerticalAlignment="Center" Foreground="Gray" FontWeight="Medium" Margin="8,0,0,0"/>
+
+                <ListView Grid.Row="1" ItemsSource="{Binding Contacts}" SelectedItem="{Binding SelectedContact}" Background="Transparent" BorderThickness="0"
+                          ItemContainerStyle="{StaticResource ContactCard}"/>
+
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Background="#292b2d">
+                    <Border CornerRadius="25" Width="30" Height="30" Background="#3bff6f" Margin="18,0,0,0"/>
+                    <StackPanel VerticalAlignment="Center">
+                        <Label Content="Username" Foreground="White" FontWeight="SemiBold" Margin="0,-5,0,-5"/>
+                        <Label Content="Custom_Status" Foreground="Gray" FontWeight="SemiBold" Margin="0,-8,0,-5"/>
+
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+            
+            <!--Middle Content-->
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="70"/>
+                </Grid.RowDefinitions>
+                <!--Top row-->
+                <Border BorderBrush="#2F3136" BorderThickness="0,0,0,2" Background="LightSlateGray">
+                    <Grid HorizontalAlignment="Stretch" Margin="8">
+                        <Label Content="@Username" Foreground="White" FontWeight="Bold" Margin="5,0,5,0" VerticalAlignment="Center"/>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Image Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,5,0"
+                                   Source="./Assets/Icons/Call.png"/>
+                            <Image Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,5,0"
+                                   Source="./Assets/Icons/Video.png"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                
+                <!--Middle row-->
+                <ListView ItemsSource="{Binding SelectedContact.Messages}" Background="Transparent" BorderThickness="0" 
+                          ItemContainerStyle="{StaticResource ChatItem}" Margin="8,0,0,0" Grid.Row="1"/>
+
+                <!--Last row-->
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="90"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Grid.Row="1" Height="50" Text="Message @Username" Style="{StaticResource MessageBox}" Grid.ColumnSpan="2"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,16,0">
+                        <Image Source="./Assets/Icons/Plus.png" Width="30" RenderOptions.BitmapScalingMode="Fant" Margin="5,5,3,0"/>
+                        <Image Source="./Assets/Icons/Send.png" Width="30" RenderOptions.BitmapScalingMode="Fant" Margin="5,5,2,0"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+
+        </Grid>
+    </Border>
+</Window>
