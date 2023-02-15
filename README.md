@@ -2,7 +2,7 @@
 # To use this application, clone the development branch.
 <br><br>
 # To start this application: <br>
-- After successful cloning, please click Debug button on top. <br><br>
+- After successful cloning and running the project, please click Debug button on top. <br><br>
 
 #Important informations: <br>
 - This app is not connected to an api and currently using seeded data. <br>
